@@ -34,7 +34,6 @@ import os
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from ur_moveit_config.launch_common import load_yaml
-from launch_ros.parameter_descriptions import ParameterValue
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, OpaqueFunction
@@ -126,9 +125,7 @@ def launch_setup(context, *args, **kwargs):
             " ",
         ]
     )
-    robot_description = {
-        "robot_description": ParameterValue(robot_description_content, value_type=str)
-    }
+    robot_description = {"robot_description": robot_description_content}
 
     # MoveIt Configuration
     robot_description_semantic_content = Command(
@@ -211,6 +208,11 @@ def launch_setup(context, *args, **kwargs):
         "warehouse_host": warehouse_sqlite_path,
     }
 
+    octomap_config = {"octomap_frame": "world", 
+                    "octomap_resolution": 0.01,
+                    "max_range": 2.0}
+    octomap_updater_config = load_yaml("ur_moveit_config", "config/pointcloud_octomap.yaml")
+
     # Start the actual move_group node/action server
     move_group_node = Node(
         package="moveit_ros_move_group",
@@ -228,6 +230,8 @@ def launch_setup(context, *args, **kwargs):
             planning_scene_monitor_parameters,
             {"use_sim_time": use_sim_time},
             warehouse_ros_config,
+            # octomap_config,
+            # octomap_updater_config,
         ],
     )
 
