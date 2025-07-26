@@ -47,14 +47,6 @@
       <joint name="${prefix}wrist_2_joint" value="1.64835" />
       <joint name="${prefix}wrist_3_joint" value="-0.028" /> <!-- -0.028 -->
     </group_state>
-    <group_state name="${prefix}harvest_set" group="${prefix}${name}_manipulator">
-      <joint name="${prefix}elbow_joint" value="2.187139381739011" />
-      <joint name="${prefix}shoulder_lift_joint" value="-2.043222502923897" />
-      <joint name="${prefix}shoulder_pan_joint" value="1.6987447853438469" />
-      <joint name="${prefix}wrist_1_joint" value="-0.16578364100649842" />
-      <joint name="${prefix}wrist_2_joint" value="1.7132108772666321" />
-      <joint name="${prefix}wrist_3_joint" value="-0.029275631321143938" />
-    </group_state>
     <group_state name="${prefix}new_harvest_set" group="${prefix}${name}_manipulator">
       <joint name="${prefix}elbow_joint" value="2.4783" />
       <joint name="${prefix}shoulder_lift_joint" value="-1.8675" />
@@ -63,6 +55,14 @@
       <joint name="${prefix}wrist_2_joint" value="-1.6929" />
       <joint name="${prefix}wrist_3_joint" value="3.1415" />
     </group_state>
+    <!-- <group_state name="${prefix}new_harvest_set" group="${prefix}${name}_manipulator">
+      <joint name="${prefix}elbow_joint" value="2.616568152104513" />
+      <joint name="${prefix}shoulder_lift_joint" value="-2.2550112209715785" />
+      <joint name="${prefix}shoulder_pan_joint" value="2.244324207305908" />
+      <joint name="${prefix}wrist_1_joint" value="-3.505115648309225" />
+      <joint name="${prefix}wrist_2_joint" value="-2.244192425404684" />
+      <joint name="${prefix}wrist_3_joint" value="3.144463300704956" />
+    </group_state> -->
     <!--END EFFECTOR - Purpose - Represent information about an end effector.-->
     <!--VIRTUAL JOINT - Purpose - this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <!--DISABLE COLLISIONS - By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
