@@ -52,14 +52,28 @@ TRAJECTORIES = {
             "time_from_start": Duration(sec=4, nanosec=0),
         },
         {
-            "positions": [-0.195016, -1.70093, 0.902027, -0.944217, -1.52982, -0.195171],
+            "positions": [
+                -0.195016,
+                -1.70093,
+                0.902027,
+                -0.944217,
+                -1.52982,
+                -0.195171,
+            ],
             "velocities": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             "time_from_start": Duration(sec=8, nanosec=0),
         },
     ],
     "traj1": [
         {
-            "positions": [-0.195016, -1.70094, 0.902027, -0.944217, -1.52982, -0.195171],
+            "positions": [
+                -0.195016,
+                -1.70094,
+                0.902027,
+                -0.944217,
+                -1.52982,
+                -0.195171,
+            ],
             "velocities": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             "time_from_start": Duration(sec=0, nanosec=0),
         },
@@ -81,16 +95,18 @@ class JTCClient(rclpy.node.Node):
         self.declare_parameter(
             "joints",
             [
-                "shoulder_pan_joint",
-                "shoulder_lift_joint",
-                "elbow_joint",
-                "wrist_1_joint",
-                "wrist_2_joint",
-                "wrist_3_joint",
+                "right_arm_shoulder_pan_joint",
+                "right_arm_shoulder_lift_joint",
+                "right_arm_elbow_joint",
+                "right_arm_wrist_1_joint",
+                "right_arm_wrist_2_joint",
+                "right_arm_wrist_3_joint",
             ],
         )
 
-        controller_name = self.get_parameter("controller_name").value + "/follow_joint_trajectory"
+        controller_name = (
+            self.get_parameter("controller_name").value + "/follow_joint_trajectory"
+        )
         self.joints = self.get_parameter("joints").value
 
         if self.joints is None or len(self.joints) == 0:
@@ -137,7 +153,8 @@ class JTCClient(rclpy.node.Node):
 
         goal.goal_time_tolerance = Duration(sec=0, nanosec=500000000)
         goal.goal_tolerance = [
-            JointTolerance(position=0.01, velocity=0.01, name=self.joints[i]) for i in range(6)
+            JointTolerance(position=0.01, velocity=0.01, name=self.joints[i])
+            for i in range(6)
         ]
 
         self._send_goal_future = self._action_client.send_goal_async(goal)
