@@ -377,7 +377,7 @@ def launch_setup(context, *args, **kwargs):
         "ur_configuration_controller",
     ]
     controllers_inactive = [
-        "scaled_joint_trajectory_controller",
+        "right_arm_scaled_joint_trajectory_controller",
         "right_arm_joint_trajectory_controller",
         "left_arm_joint_trajectory_controller",
         # "joint_trajectory_controller",
@@ -550,9 +550,9 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "initial_joint_controller",
-            default_value="scaled_joint_trajectory_controller",
+            default_value="right_arm_scaled_joint_trajectory_controller",
             choices=[
-                "scaled_joint_trajectory_controller",
+                "right_arm_scaled_joint_trajectory_controller",
                 "joint_trajectory_controller",
                 "forward_velocity_controller",
                 "forward_position_controller",

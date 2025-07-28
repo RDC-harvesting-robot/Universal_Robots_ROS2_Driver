@@ -48,7 +48,6 @@ from launch.substitutions import (
 
 
 def launch_setup(context, *args, **kwargs):
-
     # Initialize Arguments
     ur_type = LaunchConfiguration("ur_type")
     safety_limits = LaunchConfiguration("safety_limits")
@@ -57,12 +56,15 @@ def launch_setup(context, *args, **kwargs):
     # General arguments
     description_package = LaunchConfiguration("description_package")
     description_file = LaunchConfiguration("description_file")
-    _publish_robot_description_semantic = LaunchConfiguration("publish_robot_description_semantic")
+    _publish_robot_description_semantic = LaunchConfiguration(
+        "publish_robot_description_semantic"
+    )
     moveit_config_package = LaunchConfiguration("moveit_config_package")
     moveit_joint_limits_file = LaunchConfiguration("moveit_joint_limits_file")
     moveit_config_file = LaunchConfiguration("moveit_config_file")
     warehouse_sqlite_path = LaunchConfiguration("warehouse_sqlite_path")
-    prefix = LaunchConfiguration("prefix")
+    prefix1 = LaunchConfiguration("prefix1")
+    prefix2 = LaunchConfiguration("prefix2")
     use_sim_time = LaunchConfiguration("use_sim_time")
     launch_rviz = LaunchConfiguration("launch_rviz")
     launch_servo = LaunchConfiguration("launch_servo")
@@ -71,20 +73,37 @@ def launch_setup(context, *args, **kwargs):
         [FindPackageShare(description_package), "config", ur_type, "joint_limits.yaml"]
     )
     kinematics_params = PathJoinSubstitution(
-        [FindPackageShare(description_package), "config", ur_type, "default_kinematics.yaml"]
+        [
+            FindPackageShare(description_package),
+            "config",
+            ur_type,
+            "default_kinematics.yaml",
+        ]
     )
     physical_params = PathJoinSubstitution(
-        [FindPackageShare(description_package), "config", ur_type, "physical_parameters.yaml"]
+        [
+            FindPackageShare(description_package),
+            "config",
+            ur_type,
+            "physical_parameters.yaml",
+        ]
     )
     visual_params = PathJoinSubstitution(
-        [FindPackageShare(description_package), "config", ur_type, "visual_parameters.yaml"]
+        [
+            FindPackageShare(description_package),
+            "config",
+            ur_type,
+            "visual_parameters.yaml",
+        ]
     )
 
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
-            PathJoinSubstitution([FindPackageShare(description_package), "urdf", description_file]),
+            PathJoinSubstitution(
+                [FindPackageShare(description_package), "urdf", description_file]
+            ),
             " ",
             "robot_ip:=xxx.yyy.zzz.www",
             " ",
@@ -121,8 +140,11 @@ def launch_setup(context, *args, **kwargs):
             " ",
             "output_recipe_filename:=rtde_output_recipe.txt",
             " ",
-            "prefix:=",
-            prefix,
+            "prefix1:=",
+            prefix1,
+            " ",
+            "prefix2:=",
+            prefix2,
             " ",
         ]
     )
@@ -144,12 +166,17 @@ def launch_setup(context, *args, **kwargs):
             # configs has to be updated!
             "ur",
             " ",
-            "prefix:=",
-            prefix,
+            "prefix1:=",
+            prefix1,
+            " ",
+            "prefix2:=",
+            prefix2,
             " ",
         ]
     )
-    robot_description_semantic = {"robot_description_semantic": robot_description_semantic_content}
+    robot_description_semantic = {
+        "robot_description_semantic": robot_description_semantic_content
+    }
 
     publish_robot_description_semantic = {
         "publish_robot_description_semantic": _publish_robot_description_semantic
@@ -174,16 +201,24 @@ def launch_setup(context, *args, **kwargs):
             "start_state_max_bounds_error": 0.1,
         }
     }
+    # ompl_planning_yaml = load_yaml("ur_dual_moveit_config", "config/ompl_planning.yaml")
     ompl_planning_yaml = load_yaml("ur_moveit_config", "config/ompl_planning.yaml")
     ompl_planning_pipeline_config["move_group"].update(ompl_planning_yaml)
 
     # Trajectory Execution Configuration
+    # controllers_yaml = load_yaml("ur_dual_moveit_config", "config/controllers.yaml")
     controllers_yaml = load_yaml("ur_moveit_config", "config/controllers.yaml")
     # the scaled_joint_trajectory_controller does not work on fake hardware
     change_controllers = context.perform_substitution(use_sim_time)
     if change_controllers == "true":
-        controllers_yaml["scaled_joint_trajectory_controller"]["default"] = False
-        controllers_yaml["joint_trajectory_controller"]["default"] = True
+        controllers_yaml["right_arm_scaled_joint_trajectory_controller"]["default"] = (
+            False
+        )
+        controllers_yaml["right_arm_joint_trajectory_controller"]["default"] = True
+        controllers_yaml["left_arm_scaled_joint_trajectory_controller"]["default"] = (
+            False
+        )
+        controllers_yaml["left_arm_joint_trajectory_controller"]["default"] = True
 
     moveit_controllers = {
         "moveit_simple_controller_manager": controllers_yaml,
@@ -256,6 +291,7 @@ def launch_setup(context, *args, **kwargs):
     )
 
     # Servo node for realtime control
+    # servo_yaml = load_yaml("ur_dual_moveit_config", "config/ur_servo.yaml")
     servo_yaml = load_yaml("ur_moveit_config", "config/ur_servo.yaml")
     servo_params = {"moveit_servo": servo_yaml}
     servo_node = Node(
@@ -276,7 +312,6 @@ def launch_setup(context, *args, **kwargs):
 
 
 def generate_launch_description():
-
     declared_arguments = []
     # UR specific arguments
     declared_arguments.append(
@@ -324,6 +359,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
+            # default_value="ur_dual_description",
             default_value="ur_description",
             description="Description package with robot URDF/XACRO files. Usually the argument "
             "is not set, it enables use of a custom description.",
@@ -332,6 +368,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
+            # default_value="ur_dual_real.urdf.xacro",
             default_value="ur.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         )
@@ -346,7 +383,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_config_package",
-            default_value="ur_moveit_config",
+            default_value="ur_dual_moveit_config",
             description="MoveIt config package with robot SRDF/XACRO files. Usually the argument "
             "is not set, it enables use of a custom moveit config.",
         )
@@ -354,7 +391,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_config_file",
-            default_value="ur.srdf.xacro",
+            default_value="ur_dual_real.srdf.xacro",
             description="MoveIt SRDF/XACRO description file with the robot.",
         )
     )
@@ -381,18 +418,33 @@ def generate_launch_description():
     )
     declared_arguments.append(
         DeclareLaunchArgument(
-            "prefix",
-            default_value='""',
+            "prefix1",
+            default_value='"right_arm"',
             description="Prefix of the joint names, useful for "
             "multi-robot setup. If changed than also joint names in the controllers' configuration "
             "have to be updated.",
         )
     )
     declared_arguments.append(
-        DeclareLaunchArgument("launch_rviz", default_value="true", description="Launch RViz?")
+        DeclareLaunchArgument(
+            "prefix2",
+            default_value='"left_arm"',
+            description="Prefix of the joint names, useful for "
+            "multi-robot setup. If changed than also joint names in the controllers' configuration "
+            "have to be updated.",
+        )
     )
     declared_arguments.append(
-        DeclareLaunchArgument("launch_servo", default_value="true", description="Launch Servo?")
+        DeclareLaunchArgument(
+            "launch_rviz", default_value="true", description="Launch RViz?"
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "launch_servo", default_value="true", description="Launch Servo?"
+        )
     )
 
-    return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])
+    return LaunchDescription(
+        declared_arguments + [OpaqueFunction(function=launch_setup)]
+    )

@@ -21,7 +21,7 @@ controller_manager:
     joint_trajectory_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-    scaled_joint_trajectory_controller:
+    right_arm_scaled_joint_trajectory_controller:
       type: ur_controllers/ScaledJointTrajectoryController
 
     forward_velocity_controller:
@@ -159,7 +159,7 @@ joint_trajectory_controller:
       $(var tf_prefix)wrist_3_joint: { trajectory: 0.2, goal: 0.1 }
 
 
-scaled_joint_trajectory_controller:
+right_arm_scaled_joint_trajectory_controller:
   ros__parameters:
     joints:
       - $(var tf_prefix)shoulder_pan_joint
