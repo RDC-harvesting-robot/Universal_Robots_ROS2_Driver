@@ -38,12 +38,6 @@ from launch.substitutions import LaunchConfiguration, ThisLaunchFileDir
 def generate_launch_description():
     # Declare arguments
     declared_arguments = []
-    # declared_arguments.append(
-    #     DeclareLaunchArgument(
-    #         "robot_ip_right_arm",
-    #         description="IP address by which the right arm can be reached.",
-    #     )
-    # )
     declared_arguments.append(
         DeclareLaunchArgument(
             "robot_ip",
@@ -92,36 +86,25 @@ def generate_launch_description():
             "prefix", default_value="right_arm", description="Activate arm"
         )
     )
-    # declared_arguments.append(
-    #     DeclareLaunchArgument(
-    #         "prefix2", default_value="left_arm", description="Activate arm"
-    #     )
-    # )
 
     # Initialize Arguments
     robot_ip = LaunchConfiguration("robot_ip")
-    # robot_ip_right_arm = LaunchConfiguration("robot_ip_right_arm")
-    # robot_ip_left_arm = LaunchConfiguration("robot_ip_left_arm")
     use_fake_hardware = LaunchConfiguration("use_fake_hardware")
     fake_sensor_commands = LaunchConfiguration("fake_sensor_commands")
     initial_joint_controller = LaunchConfiguration("initial_joint_controller")
     activate_joint_controller = LaunchConfiguration("activate_joint_controller")
     prefix = LaunchConfiguration("prefix")
-    # prefix2 = LaunchConfiguration("prefix2")
 
     base_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([ThisLaunchFileDir(), "/ur_control.launch.py"]),
         launch_arguments={
             "ur_type": "ur5e",
             "robot_ip": robot_ip,
-            # "robot_ip_right_arm": robot_ip_right_arm,
-            # "robot_ip_left_arm": robot_ip_left_arm,
             "use_fake_hardware": use_fake_hardware,
             "fake_sensor_commands": fake_sensor_commands,
             "initial_joint_controller": initial_joint_controller,
             "activate_joint_controller": activate_joint_controller,
             "prefix": prefix,
-            # "prefix2": prefix2,
         }.items(),
     )
 
