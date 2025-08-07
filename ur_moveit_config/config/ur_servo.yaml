@@ -69,7 +69,7 @@ status_topic: ~/status # Publish status to this topic
 command_out_topic: /forward_position_controller/commands # Publish outgoing commands here
 
 monitored_planning_scene_topic: /monitored_planning_scene
-check_octomap_collisions: true
+# check_octomap_collisions: true
 
 ## Collision checking for the entire robot body
 check_collisions: true # Check collisions?
