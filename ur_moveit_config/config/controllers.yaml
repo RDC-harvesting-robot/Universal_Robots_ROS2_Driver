@@ -6,6 +6,7 @@ controller_names:
   - right_arm_ee_controller
   - left_arm_ee_controller
 
+# エンドエフェクタ用の定義で、今後使用する予定であるため残しておく
 # right_arm_ee_controller:
 #   action_ns: follow_joint_trajectory
 #   type: FollowJointTrajectory
