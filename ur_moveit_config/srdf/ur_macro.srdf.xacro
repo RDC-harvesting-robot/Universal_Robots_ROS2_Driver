@@ -47,22 +47,22 @@
       <joint name="${prefix}wrist_2_joint" value="1.64835" />
       <joint name="${prefix}wrist_3_joint" value="-0.028" /> <!-- -0.028 -->
     </group_state>
-    <group_state name="${prefix}new_harvest_set" group="${prefix}${name}_manipulator">
+    <!-- <group_state name="${prefix}new_harvest_set" group="${prefix}${name}_manipulator">
       <joint name="${prefix}elbow_joint" value="2.4783" />
       <joint name="${prefix}shoulder_lift_joint" value="-1.8675" />
       <joint name="${prefix}shoulder_pan_joint" value="1.6929" />
       <joint name="${prefix}wrist_1_joint" value="-3.7873" />
       <joint name="${prefix}wrist_2_joint" value="-1.6929" />
       <joint name="${prefix}wrist_3_joint" value="3.1415" />
-    </group_state>
-    <!-- <group_state name="${prefix}new_harvest_set" group="${prefix}${name}_manipulator">
-      <joint name="${prefix}elbow_joint" value="2.616568152104513" />
-      <joint name="${prefix}shoulder_lift_joint" value="-2.2550112209715785" />
-      <joint name="${prefix}shoulder_pan_joint" value="2.244324207305908" />
-      <joint name="${prefix}wrist_1_joint" value="-3.505115648309225" />
-      <joint name="${prefix}wrist_2_joint" value="-2.244192425404684" />
-      <joint name="${prefix}wrist_3_joint" value="3.144463300704956" />
     </group_state> -->
+    <group_state name="${prefix}new_harvest_set" group="${prefix}${name}_manipulator">
+      <joint name="${prefix}elbow_joint" value="2.2812183539019983" />
+      <joint name="${prefix}shoulder_lift_joint" value="-1.6140600643553675" />
+      <joint name="${prefix}shoulder_pan_joint" value="0.16587185859680176" />
+      <joint name="${prefix}wrist_1_joint" value="-4.0158709488310755" />
+      <joint name="${prefix}wrist_2_joint" value="-0.16943198839296514" />
+      <joint name="${prefix}wrist_3_joint" value="3.34975004196167" />
+    </group_state>
     <!--END EFFECTOR - Purpose - Represent information about an end effector.-->
     <!--VIRTUAL JOINT - Purpose - this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <!--DISABLE COLLISIONS - By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
