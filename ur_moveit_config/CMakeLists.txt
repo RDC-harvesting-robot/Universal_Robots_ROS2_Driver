@@ -3,6 +3,19 @@ project(ur_moveit_config)
 
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+
+add_executable(joint_states_manager ur_moveit_config/joint_states_manager.cpp)
+
+ament_target_dependencies(joint_states_manager
+  rclcpp
+  sensor_msgs  
+)
+install(TARGETS
+  joint_states_manager
+  DESTINATION lib
+)
 
 install(DIRECTORY config launch rviz srdf
   DESTINATION share/${PROJECT_NAME}

@@ -303,7 +303,14 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
     )
 
-    nodes_to_start = [move_group_node, rviz_node, servo_node]
+    # Joint states manager
+    joint_states_manager = Node(
+        package="ur_moveit_config",
+        executable="joint_states_manager",
+        output="screen",
+    )
+
+    nodes_to_start = [move_group_node, rviz_node, joint_states_manager]
 
     return nodes_to_start
 
