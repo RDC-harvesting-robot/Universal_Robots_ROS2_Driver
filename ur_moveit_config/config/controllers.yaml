@@ -1,8 +1,8 @@
 controller_names:
-  - right_arm_scaled_joint_trajectory_controller
-  - right_arm_joint_trajectory_controller
-  - left_arm_scaled_joint_trajectory_controller
-  - left_arm_joint_trajectory_controller
+  - /right_arm/scaled_joint_trajectory_controller
+  - /right_arm/joint_trajectory_controller
+  - /left_arm/scaled_joint_trajectory_controller
+  - /left_arm/joint_trajectory_controller
   - right_arm_ee_controller
   - left_arm_ee_controller
 
@@ -23,7 +23,7 @@ controller_names:
 #     - left_arm_ee_joint1
 #     - left_arm_ee_joint2
 
-right_arm_scaled_joint_trajectory_controller:
+/right_arm/scaled_joint_trajectory_controller:
   action_ns: follow_joint_trajectory
   type: FollowJointTrajectory
   default: true
@@ -34,7 +34,7 @@ right_arm_scaled_joint_trajectory_controller:
     - right_arm_wrist_1_joint
     - right_arm_wrist_2_joint
     - right_arm_wrist_3_joint
-right_arm_joint_trajectory_controller:
+/right_arm/joint_trajectory_controller:
   action_ns: follow_joint_trajectory
   type: FollowJointTrajectory
   default: false
@@ -45,7 +45,7 @@ right_arm_joint_trajectory_controller:
     - right_arm_wrist_1_joint
     - right_arm_wrist_2_joint
     - right_arm_wrist_3_joint
-left_arm_scaled_joint_trajectory_controller:
+/left_arm/scaled_joint_trajectory_controller:
   action_ns: follow_joint_trajectory
   type: FollowJointTrajectory
   default: true
@@ -56,7 +56,7 @@ left_arm_scaled_joint_trajectory_controller:
     - left_arm_wrist_1_joint
     - left_arm_wrist_2_joint
     - left_arm_wrist_3_joint
-left_arm_joint_trajectory_controller:
+/left_arm/joint_trajectory_controller:
   action_ns: follow_joint_trajectory
   type: FollowJointTrajectory
   default: false
