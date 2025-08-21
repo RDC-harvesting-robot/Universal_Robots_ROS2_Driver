@@ -511,7 +511,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
-            default_value="ur_dual_real_right_arm.urdf.xacro",
+            default_value="ur_dual_real_left_arm.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         )
     )
@@ -660,7 +660,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "tool_tcp_port",
-            default_value="54321",
+            default_value="54322",
             description="Remote port that will be used for bridging the tool's serial device. "
             "Only effective, if use_tool_communication is set to True.",
         )
@@ -682,41 +682,41 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "script_command_port",
-            default_value="50004",
+            default_value="50008",
             description="Port that will be opened to forward URScript commands to the robot.",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "reverse_port",
-            default_value="50001",
+            default_value="50005",
             description="Port that will be opened to send cyclic instructions from the driver to the robot controller.",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "script_sender_port",
-            default_value="50002",
+            default_value="50006",
             description="The driver will offer an interface to query the external_control URScript on this port.",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "trajectory_port",
-            default_value="50003",
+            default_value="50007",
             description="Port that will be opened for trajectory control.",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "prefix",
-            default_value="right_arm",
+            default_value="left_arm",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "namespace",
-            default_value="right_arm",
+            default_value="left_arm",
         )
     )
     return LaunchDescription(

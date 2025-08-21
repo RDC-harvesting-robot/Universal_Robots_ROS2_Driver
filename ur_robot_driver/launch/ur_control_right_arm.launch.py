@@ -400,6 +400,9 @@ def launch_setup(context, *args, **kwargs):
         "ur_configuration_controller",
     ]
     controllers_inactive = [
+        # "right_arm_scaled_joint_trajectory_controller",
+        # "right_arm_joint_trajectory_controller",
+        # "left_arm_joint_trajectory_controller",
         "scaled_joint_trajectory_controller",
         "joint_trajectory_controller",
         "forward_velocity_controller",
@@ -511,6 +514,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
+            # default_value="ur_dual_real_left_arm.urdf.xacro",
             default_value="ur_dual_real_right_arm.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         )
@@ -572,6 +576,7 @@ def generate_launch_description():
             "initial_joint_controller",
             default_value="scaled_joint_trajectory_controller",
             choices=[
+                # "right_arm_scaled_joint_trajectory_controller",
                 "scaled_joint_trajectory_controller",
                 "joint_trajectory_controller",
                 "forward_velocity_controller",
@@ -682,6 +687,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "script_command_port",
+            # default_value="50008",
             default_value="50004",
             description="Port that will be opened to forward URScript commands to the robot.",
         )
@@ -689,6 +695,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "reverse_port",
+            # default_value="50005",
             default_value="50001",
             description="Port that will be opened to send cyclic instructions from the driver to the robot controller.",
         )
@@ -696,6 +703,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "script_sender_port",
+            # default_value="50007",
             default_value="50002",
             description="The driver will offer an interface to query the external_control URScript on this port.",
         )
@@ -703,6 +711,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "trajectory_port",
+            # default_value="50006",
             default_value="50003",
             description="Port that will be opened for trajectory control.",
         )
@@ -716,7 +725,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "namespace",
-            default_value="right_arm",
+            # default_value="right_arm",
         )
     )
     return LaunchDescription(
