@@ -7,6 +7,9 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
 add_executable(joint_states_manager ur_moveit_config/joint_states_manager.cpp)
+target_include_directories(joint_states_manager PUBLIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
 ament_target_dependencies(joint_states_manager
   rclcpp
@@ -14,7 +17,7 @@ ament_target_dependencies(joint_states_manager
 )
 install(TARGETS
   joint_states_manager
-  DESTINATION lib
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 install(DIRECTORY config launch rviz srdf
