@@ -43,12 +43,12 @@ TIMEOUT_WAIT_SERVICE_INITIAL = 60
 TIMEOUT_WAIT_ACTION = 10
 
 ROBOT_JOINTS = [
-    "shoulder_pan_joint",
-    "shoulder_lift_joint",
-    "elbow_joint",
-    "wrist_1_joint",
-    "wrist_2_joint",
-    "wrist_3_joint",
+    "right_arm_shoulder_pan_joint",
+    "right_arm_shoulder_lift_joint",
+    "right_arm_elbow_joint",
+    "right_arm_wrist_1_joint",
+    "right_arm_wrist_2_joint",
+    "right_arm_wrist_3_joint",
 ]
 
 
@@ -56,7 +56,9 @@ ROBOT_JOINTS = [
 def waitForService(node, srv_name, srv_type, timeout=TIMEOUT_WAIT_SERVICE):
     client = node.create_client(srv_type, srv_name)
     if client.wait_for_service(timeout) is False:
-        raise Exception(f"Could not reach service '{srv_name}' within timeout of {timeout}")
+        raise Exception(
+            f"Could not reach service '{srv_name}' within timeout of {timeout}"
+        )
 
     node.get_logger().info(f"Successfully connected to service '{srv_name}'")
     return client
@@ -171,7 +173,11 @@ if __name__ == "__main__":
         [-1.2, -1.4, -1.9, -1.2, 1.5951, -0.0311],
         [-1.6006, -1.7272, -2.2030, -0.8079, 1.5951, -0.0311],
     ]
-    time_vec = [Duration(sec=4, nanosec=0), Duration(sec=8, nanosec=0), Duration(sec=12, nanosec=0)]
+    time_vec = [
+        Duration(sec=4, nanosec=0),
+        Duration(sec=8, nanosec=0),
+        Duration(sec=12, nanosec=0),
+    ]
 
     # Execute trajectory on robot, make sure that the robot is booted and the control script is running
     robot.send_trajectory(waypts, time_vec)
