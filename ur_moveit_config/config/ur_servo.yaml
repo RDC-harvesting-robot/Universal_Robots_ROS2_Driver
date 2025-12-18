@@ -48,7 +48,7 @@ planning_frame: base_link  # The MoveIt planning frame. Often 'base_link' or 'wo
 
 ## Other frames
 ee_frame_name: tool0  # The name of the end effector link, used to return the EE pose
-robot_link_command_frame:  tool0  # commands must be given in the frame of a robot link. Usually either the base or end effector
+robot_link_command_frame: tool0  # commands must be given in the frame of a robot link. Usually either the base or end effector
 
 ## Stopping behaviour
 incoming_command_timeout:  0.1  # Stop servoing if X seconds elapse without a new command
@@ -62,7 +62,7 @@ hard_stop_singularity_threshold: 200.0 # Stop when the condition number hits thi
 joint_limit_margin: 0.1 # added as a buffer to joint limits [radians]. If moving quickly, make this larger.
 
 ## Topic names
-cartesian_command_in_topic: ~/delta_twist_cmds  # Topic for incoming Cartesian twist commands
+cartesian_command_in_topic: ~/delta_twist_cmds_filtered  # Topic for incoming Cartesian twist commands
 joint_command_in_topic: ~/delta_joint_cmds # Topic for incoming joint angle commands
 joint_topic: /joint_states
 status_topic: ~/status # Publish status to this topic
